@@ -7,6 +7,10 @@
 
 <script>
 	var socket = io();
+	socket.on('serverEvent', function(data){
+		console.log('serverEvent data',data);
+	});
+	socket.emit('clientEvent', 'Sent an event from the client!');
 </script>
    <body>Hello world</body>
 </html>
