@@ -13,12 +13,28 @@ app.get('/', function(req, res) {
 });
 
 //whenever someone connects this gets executed
+var clients = 0;
+var roomno = 1;
+io.on('connection',function(socket){
+	clients++;
+	console.log('A user connected');
+	
+//Increase roomno 2 clients are present in a room
 
-var nsp = io.of('/my-namespace');
+if(io.nsps['/'].adapter.rooms["room-"+roomno] && io.nsps['/'].adapter.rooms["room-"+roomno].length>1) roomno++;
 
-nsp.on('connection', function(socket) {
-   console.log('someone connected');
-   nsp.emit('hi', 'Hello everyone!');
+socket.join("room-"+roomno);
+//send this event to everyone in the room
+io.sockets.in("room-"+roomno).emit('connectToRoom',"your are in room no. "+roomno);
+
+
+	//wherever someone disconnects this piece of code executed
+	socket.on('disconnect',function(){
+		clients--;
+socket.leave("room-"+roomno);
+
+	});
+
 });
 
 http.listen(3000, function() {
