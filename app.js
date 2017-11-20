@@ -14,14 +14,14 @@ app.get('/', function(req, res) {
 
 //whenever someone connects this gets executed
 
+var clients = 0;
 io.on('connection',function(socket){
-	console.log('A user connected');
+	clients++;
 
-	//send a msg after a timeout 4 sec
-	setTimeout(function(){
-		//socket.send('sent a msg 4 sec after connection');
-		socket.emit('serverEvent',{desc:'a custom event'});
-	},4000);
+	console.log('A user connected');
+	
+socket.emit('newclientconnect',{ description: 'Hey, welcome!'});
+   socket.broadcast.emit('newclientconnect',{ description: clients + ' clients connected!'})
 
 	socket.on('clientEvent',function(data){
 		console.log('clientEvent data',data);
@@ -29,7 +29,9 @@ io.on('connection',function(socket){
 	
 	//wherever someone disconnects this piece of code executed
 	socket.on('disconnect',function(){
-		console.log('A user disconnected');
+		clients--;
+      socket.broadcast.emit('newclientconnect',{ description: clients + ' clients connected!'})
+
 	});
 });
 

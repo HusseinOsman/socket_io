@@ -11,6 +11,12 @@
 		console.log('serverEvent data',data);
 	});
 	socket.emit('clientEvent', 'Sent an event from the client!');
+
+
+socket.on('newclientconnect',function(data) {
+         document.body.innerHTML = '';
+         document.write(data.description);
+      });
 </script>
    <body>Hello world</body>
 </html>
