@@ -1,0 +1,26 @@
+{
+  "name": "socket_io",
+  "version": "1.0.0",
+  "description": "socket.io with express.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://HusseinOsman@bitbucket.org/HusseinOsman/socket_io.git"
+  },
+  "keywords": [
+    "socket.js",
+    "node",
+    "real",
+    "time"
+  ],
+  "author": "HusseinOsman",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/HusseinOsman/socket_io#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  }
+}
