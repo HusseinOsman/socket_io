@@ -13,10 +13,11 @@
 	socket.emit('clientEvent', 'Sent an event from the client!');
 
 
-socket.on('newclientconnect',function(data) {
+var nsp = io('/my-namespace');
+      nsp.on('hi',function(data) {
          document.body.innerHTML = '';
-         document.write(data.description);
-      });
+         document.write(data);
+      });;
 </script>
    <body>Hello world</body>
 </html>

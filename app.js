@@ -14,25 +14,11 @@ app.get('/', function(req, res) {
 
 //whenever someone connects this gets executed
 
-var clients = 0;
-io.on('connection',function(socket){
-	clients++;
+var nsp = io.of('/my-namespace');
 
-	console.log('A user connected');
-	
-socket.emit('newclientconnect',{ description: 'Hey, welcome!'});
-   socket.broadcast.emit('newclientconnect',{ description: clients + ' clients connected!'})
-
-	socket.on('clientEvent',function(data){
-		console.log('clientEvent data',data);
-	});
-	
-	//wherever someone disconnects this piece of code executed
-	socket.on('disconnect',function(){
-		clients--;
-      socket.broadcast.emit('newclientconnect',{ description: clients + ' clients connected!'})
-
-	});
+nsp.on('connection', function(socket) {
+   console.log('someone connected');
+   nsp.emit('hi', 'Hello everyone!');
 });
 
 http.listen(3000, function() {
